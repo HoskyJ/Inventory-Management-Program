@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import java.util.List;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.io.IOException;
 
 public class ParseCSV {
 
-	/*
+	/* 
 	 * Reads from item_properties.csv. Returns the contents of
 	 * item_properties.csv as a multidimensional String array.
 	 */
@@ -24,11 +25,16 @@ public class ParseCSV {
 		
 		try {
 			scanner = new Scanner (new BufferedReader(new FileReader(fileName)));
-			tempScanner = new Scanner (new BufferedReader(new FileReader(fileName)));
-		}
-		catch(FileNotFoundException e){
+			tempScanner = new Scanner (new BufferedReader(new FileReader(fileName)));	
+		} catch(FileNotFoundException e){
 			throw new CSVFormatException("Invalid file name");
 		}
+		
+		//throws exception if file is empty
+		File file = new File(fileName);
+        if (file.length() == 0) {
+        	throw new CSVFormatException("File is empty");
+        }
 		
 		//Create appropriate sized 2D array for storing item data
 		int rowCounter = 0;

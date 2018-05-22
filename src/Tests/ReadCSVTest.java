@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class readCSVTest {
+class ReadCSVTest {
 
 	//Invalid item_properties file name
 	@Test
@@ -19,6 +19,7 @@ class readCSVTest {
 	//Empty item_properties file
 	@Test
 	void emptyFile() {
+		
         final CSVFormatException thrown = assertThrows(
         		CSVFormatException.class,
                 () -> { CSV.ParseCSV.readItems("test_files/item_properties(empty).csv"); }

@@ -19,6 +19,7 @@ public class Manifest {
 	public static ArrayList<ArrayList<Object>> cooledItems;
 	
 	public Manifest() {
+		//test
 	}
 	
 	//Determine items that need re-stocking and their reorder amounts

@@ -136,41 +136,41 @@ public class Manifest {
 		//Fill any left over space in cooled trucks
 		//Get most recent truck details
 		Delivery.Truck previousTruck = Manifest.get(Manifest.size()-1); //Gets the most recent truck object (the only one that will have space)
-		int temperature = previousTruck.getTruckTemp();
-		
-		Delivery.RefrigeratedTruck cooledTruck = new Delivery.RefrigeratedTruck(temperature);
 		
 		List<Item> cargo = previousTruck.cargo.getItems(); //Get trucks cargo
+		
+		
+		
 		int counter = 0;
 		
-		while(cooledTruck.capacity > 0 && counter < cooledItems.size()) {
+		while(previousTruck.capacity > 0 && counter < ordinaryItems.size()) {
 			//Get current item details
-			int itemQuantity = Integer.parseInt((String) cooledItems.get(counter).get(1));
-			String itemName = (String) cooledItems.get(counter).get(0);
+			int itemQuantity = Integer.parseInt((String) ordinaryItems.get(counter).get(1));
+			String itemName = (String) ordinaryItems.get(counter).get(0);
 			
 			//Item can be filled completely into truck
-			if(cooledTruck.capacity - itemQuantity >= 0) {
+			if(previousTruck.capacity - itemQuantity >= 0) {
 				Item cargoItem = new Item(itemName, itemQuantity); //Create relevant item
 				cargo.add(cargoItem); //Add item to list of items to load truck with
-				cooledTruck.capacity -= itemQuantity;
-				cooledItems.remove(counter); //All of this item has been filled so remove it
+				previousTruck.capacity -= itemQuantity;
+				ordinaryItems.remove(counter); //All of this item has been filled so remove it
 			}
 			//Item cannot be filled completely into truck
 			else {
-				int excessItemQuantity = (cooledTruck.capacity - itemQuantity) - (cooledTruck.capacity - itemQuantity) * 2; //Originally a negative number as its the excess. Converts to positive
+				int excessItemQuantity = (previousTruck.capacity - itemQuantity) - (previousTruck.capacity - itemQuantity) * 2; //Originally a negative number as its the excess. Converts to positive
 				itemQuantity -= excessItemQuantity; //Updates itemQuantity to fit into left over space in current truck.
 				Item cargoItem = new Item(itemName, itemQuantity); //Create relevant item
 				cargo.add(cargoItem); //Add item to list of items to load truck with
-				cooledTruck.capacity -= itemQuantity;
-				cooledItems.get(counter).set(1, excessItemQuantity); //Update item with the left over quantity to be filled
+				previousTruck.capacity -= itemQuantity;
+				ordinaryItems.get(counter).set(1, excessItemQuantity); //Update item with the left over quantity to be filled
 			}
 			counter ++;
 		}
 		
 		//Load new cargo onto truck
 		Stock cargoLoad = new Stock(cargo);
-		cooledTruck.cargo = cargoLoad;
-		Manifest.set(Manifest.size() - 1, cooledTruck); //Update old truck with new ordinary goods
+		previousTruck.cargo = cargoLoad;
+		Manifest.set(Manifest.size() - 1, previousTruck); //Update old truck with new ordinary goods
 		
 		//All cooled trucks are now filled
 		//Fill dry goods accordingly
@@ -223,7 +223,7 @@ public class Manifest {
 		
 			//If last item to be order or current truck full
 			//add truck to manifest
-			if(itemIndex == cooledItems.size() - 1 || ordinaryTruck.capacity == 0) {
+			if(itemIndex == ordinaryItems.size() - 1 || ordinaryTruck.capacity == 0) {
 				//Load truck with full cargo load
 				cargoLoad = new Stock(cargo);
 				ordinaryTruck.cargo = cargoLoad;
@@ -231,20 +231,17 @@ public class Manifest {
 			}
 		}
 		
-		/**
-		int total = 0;
-		for(int x = 0; x < Manifest.size(); x++) {
-			//truck.PrintCargo();
-			for(int y = 0; y < Manifest.get(x).cargo.getItems().size(); y++) {
-				//System.out.println(trucks.get(x).cargo.getItems().get(y).getName());
-				//total += trucks.get(x).cargo.getItems().get(y).getQuantity();
-				
-				//System.out.println(trucks.get(x).getTruckTemp());
+		
+		for(Truck manifest : Manifest) {
+			List<Item> test = manifest.cargo.getItems();
+			for(int x =0; x < test.size(); x++) {
+				System.out.println(test.get(x).getName());
+				System.out.println(test.get(x).getQuantity());
 			}
-			total += Manifest.get(x).GetCost();
-			System.out.println("\n" + total);
+			
+			System.out.println("\n");
 		}
-		*/
+		
 	}
 
 	//Add up the cost of all truck loads and return.

@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import CSV.WriteCSV;
-
 public class Entry {
 
 	public static void main(String[] args) throws IOException, CSVFormatException {

@@ -13,15 +13,10 @@ public class Manifest {
 	public static ArrayList<ArrayList<Object>> cooledItems;
 	
 	public Manifest() {
-		//GetItemDetails(Main.Entry.store.GetCurrentyInventory().getItems());
-		//SortTemp();
-		//CooledLogistics();
-		//OrdinaryItems();
-		//System.out.println(GetLogisticsCost());
 	}
 	
 	//Determine items that need re-stocking and their reorder amounts
-	public static void GetItemDetails(List<Item> inventory) {
+	public static void getItemDetails(List<Item> inventory) {
 		List<Item> currentInventory = inventory;
 		ordinaryItems = new ArrayList<ArrayList<Object>>();
 		cooledItems = new ArrayList<ArrayList<Object>>();
@@ -55,7 +50,7 @@ public class Manifest {
 	}
 	
 	//Sorts cooled items in ascending order using a comparator
-	public static void SortTemp() {
+	public static void sortTemp() {
 		Collections.sort(cooledItems, new Comparator<List<Object>> () {
 	        public int compare(List<Object> list1, List<Object> list2) {
 	        return (Integer.valueOf((String) list1.get(2))).compareTo(Integer.valueOf((String)list2.get(2)));
@@ -64,7 +59,7 @@ public class Manifest {
 	}
 
 	//Distribute cooled items in trucks
-	public static void CooledLogistics() {
+	public static void cooledLogistics() {
 		List<Item> cargo = new ArrayList<Item>(); //Hold items to be loaded
 		int excessItemQuantity  = 0; //Stores left over item quantities to be filled
 		
@@ -132,7 +127,7 @@ public class Manifest {
 	}
 	
 	//Distribute ordinary items in trucks
-	public static void OrdinaryItems() {
+	public static void ordinaryLogistics() {
 		//Fill any left over space in cooled trucks
 		//Get most recent truck details
 		Delivery.Truck previousTruck = Manifest.get(Manifest.size()-1); //Gets the most recent truck object (the only one that will have space)
@@ -245,10 +240,10 @@ public class Manifest {
 	}
 
 	//Add up the cost of all truck loads and return.
-	public static double GetLogisticsCost() {
+	public static double getLogisticsCost() {
 		double totalCost = 0;
 		for(Truck truck : Manifest) {
-			totalCost += truck.GetCost();
+			totalCost += truck.getCost();
 		}
 		return totalCost;
 	}

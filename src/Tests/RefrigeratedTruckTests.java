@@ -21,6 +21,6 @@ class RefrigeratedTruckTests {
 	//Check if cost of truck is calculated correctly
 	public void getCost() {
 		double cost = Math.round((900 + 200 * Math.pow(0.7, temperature/5)) * 100.0) / 100.0;
-		assertEquals(cost, truck.GetCost());
+		assertEquals(cost, truck.getCost());
 	}
 }

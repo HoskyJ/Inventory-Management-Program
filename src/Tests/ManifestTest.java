@@ -28,9 +28,9 @@ class ManifestTest {
 		inventory.add(cargoItem2);
 		
 		Stock.Stock cargoLoad = new Stock.Stock(inventory);
-		store.UpdateInventory(cargoLoad);
+		store.updateInventory(cargoLoad);
 		
-		Manifest.GetItemDetails(inventory);
+		Manifest.getItemDetails(inventory);
 		assertEquals(inventory.get(0).getName(), Manifest.cooledItems.get(0).get(0));
 		assertEquals(inventory.get(1).getName(), Manifest.ordinaryItems.get(0).get(0));
 	}
@@ -66,11 +66,11 @@ class ManifestTest {
 		
 
 		Manifest.cooledItems = cooledItems;
-		Manifest.SortTemp();
-		//Check coldest temp is correct
+		Manifest.sortTemp();
+		//Check coldest temperature is correct
 		assertEquals("-5", Manifest.cooledItems.get(0).get(2));
 		
-		//Check highest temp is correct
+		//Check highest temperature is correct
 		assertEquals("20", Manifest.cooledItems.get(3).get(2));
 	}
 	
@@ -88,12 +88,12 @@ class ManifestTest {
 		inventory.add(cargoItem3);
 		
 		Stock.Stock inventoryItems = new Stock.Stock(inventory);
-		store.UpdateInventory(inventoryItems);
+		store.updateInventory(inventoryItems);
 		
-		Manifest.GetItemDetails(inventory);
-		Manifest.SortTemp();
-		Manifest.CooledLogistics();
-		Manifest.OrdinaryItems();
+		Manifest.getItemDetails(inventory);
+		Manifest.sortTemp();
+		Manifest.cooledLogistics();
+		Manifest.ordinaryLogistics();
 		
 		for(int x = 0; x < Manifest.Manifest.size(); x++) {
 			Truck truck = Manifest.Manifest.get(x);
@@ -121,14 +121,14 @@ class ManifestTest {
 		inventory.add(cargoItem3);
 		
 		Stock.Stock inventoryItems = new Stock.Stock(inventory);
-		store.UpdateInventory(inventoryItems);
+		store.updateInventory(inventoryItems);
 		
-		Manifest.GetItemDetails(inventory);
-		Manifest.SortTemp();
-		Manifest.CooledLogistics();
-		Manifest.OrdinaryItems();
+		Manifest.getItemDetails(inventory);
+		Manifest.sortTemp();
+		Manifest.cooledLogistics();
+		Manifest.ordinaryLogistics();
 		
-		assertEquals(3.0 + 6.0 + 2.0, 3.0 + 6.0 + 2.0, Manifest.GetLogisticsCost());
+		assertEquals(3.0 + 6.0 + 2.0, 3.0 + 6.0 + 2.0, Manifest.getLogisticsCost());
 	}
 
 }

@@ -23,12 +23,12 @@ public class Store {
 	}
 	
 	//Updates the inventory of the store after loading manifest and sales
-	public void UpdateInventory(Stock inventory) {
+	public void updateInventory(Stock inventory) {
 		this.inventory = inventory;
 	}
 	
 	//Returns the store's current inventory
-	public Stock GetCurrentyInventory() {
+	public Stock getInventory() {
 		return inventory;
 	}
 }

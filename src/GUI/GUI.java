@@ -39,7 +39,7 @@ public class GUI extends JFrame {
 	public static void initializeWindow() throws FileNotFoundException, CSVFormatException {
 		Stock inventory = new Stock();
 		inventory.initializeStock(CSV.ReadCSV.readItemProperties("test_files/item_properties.csv"));
-		Main.Entry.store.UpdateInventory(inventory);
+		Main.Entry.store.updateInventory(inventory);
 
 		// create frame
 		frame = new JFrame("Inventory Manager");
@@ -78,7 +78,7 @@ public class GUI extends JFrame {
 								}
 							}
 						}
-						Main.Entry.store.UpdateInventory(inventory);
+						Main.Entry.store.updateInventory(inventory);
 						model.fireTableDataChanged();						
 						fileChosen = false;
 					}
@@ -136,16 +136,16 @@ public class GUI extends JFrame {
 		generateManifestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Manifest.GetItemDetails(Main.Entry.store.GetCurrentyInventory().getItems());
-				Manifest.SortTemp();
-				Manifest.CooledLogistics();
-				Manifest.OrdinaryItems();
+				Manifest.getItemDetails(Main.Entry.store.getInventory().getItems());
+				Manifest.sortTemp();
+				Manifest.cooledLogistics();
+				Manifest.ordinaryLogistics();
 				try {
-					CSV.WriteCSV.WriteManifest();
+					CSV.WriteCSV.writeManifest();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				System.out.println(Manifest.GetLogisticsCost());
+				System.out.println(Manifest.getLogisticsCost());
 
 				loadManifestButton.setEnabled(true);
 				generateManifestButton.setEnabled(false);

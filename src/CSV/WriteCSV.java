@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class WriteCSV {
 
-	public static void WriteManifest() throws IOException {
+	public static void writeManifest() throws IOException {
 
 		FileWriter printWriter = new FileWriter(new File("test_files/manifest.csv"));
 		String csvString = "";

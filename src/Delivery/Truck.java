@@ -21,15 +21,8 @@ public abstract class Truck {
 			capacity = 1000;
 		}
 	}
-
-	public void PrintCargo() {
-		for(int x = 0; x < cargo.getItems().size(); x++) {
-			System.out.println(cargo.getItems().get(x));
-		}
-		System.out.println(cargo.getItems().size());
-	}
 	
-	public abstract double GetCost();
+	public abstract double getCost();
 	
 	public abstract int getTruckTemp();
 

@@ -8,7 +8,7 @@ public class OrdinaryTruck extends Truck{
 	
 	//Overrides Truck getCost method to include temperature in the calculation.
 	@Override
-	public double GetCost() {
+	public double getCost() {
 		int quantity = 1000 - capacity;
 		double truckCost = 750 + (0.25*quantity);
 		return truckCost;

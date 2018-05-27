@@ -108,7 +108,8 @@ public class GUI extends JFrame {
 									// updates item quantity
 									inventory.getItem(i).addQuantity(Integer.parseInt(manifestFile.get(j).get(1)));
 									// gets cost of each item and multiplies by quantity
-									Main.Entry.store.setCapital(Main.Entry.store.getCapital() - (Integer.parseInt(manifestFile.get(j).get(1))
+									Main.Entry.store.setCapital(Main.Entry.store.getCapital()
+											- (Integer.parseInt(manifestFile.get(j).get(1))
 													* inventory.getItem(i).getCost()));
 									// display updates capital to label
 									capitalLabel.setText(
@@ -126,6 +127,7 @@ public class GUI extends JFrame {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				loadManifestButton.setEnabled(false);
 				loadSalesButton.setEnabled(true);
 
 			}
@@ -147,7 +149,6 @@ public class GUI extends JFrame {
 
 				loadManifestButton.setEnabled(true);
 				generateManifestButton.setEnabled(false);
-				JOptionPane.showMessageDialog(null, "Manifest Generated!");
 			}
 
 		});

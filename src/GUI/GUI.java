@@ -1,5 +1,5 @@
 package GUI;
-
+import Exception.CSVFormatException;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -100,14 +100,18 @@ public class GUI extends JFrame {
 		
 		//BUTTON LISTENERS//
 		//Activates when load sales button is pressed
-		loadSalesButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		loadSalesButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
 				try {
 					//Open window for user to select file to load
 					chooseFile();
 					if (fileChosen) {
 						file = CSV.ReadCSV.readSales(filename);
 						
+						//Not proper file selected
+						if(filename.contains("manifest")) {
+							throw new CSVFormatException("This is not a sales file");
+						}
 						//Goes through CSV data
 						for (int i = 0; i < file.length; i++) {
 							String xval = file[i][0];
@@ -132,6 +136,7 @@ public class GUI extends JFrame {
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (CSVFormatException e1) {
+					JOptionPane.showMessageDialog(null, "This is not a sales file");
 					e1.printStackTrace();
 				}
 				
@@ -150,6 +155,10 @@ public class GUI extends JFrame {
 					if (fileChosen) {
 						manifestFile = CSV.ReadCSV.readManifest(filename);
 						
+						//Not proper file selected
+						if(filename.contains("sale")) {
+							throw new CSVFormatException("This is not a manifest file");
+						}
 						//Goes through CSV data
 						for (int i = 0; i < inventory.getSize(); i++) {
 							String inventoryVal = inventory.getItem(i).getName();
@@ -175,6 +184,7 @@ public class GUI extends JFrame {
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (CSVFormatException e1) {
+					JOptionPane.showMessageDialog(null, "This is not a manifest file");
 					e1.printStackTrace();
 				} catch (IOException e1) {
 					e1.printStackTrace();

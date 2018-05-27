@@ -130,8 +130,5 @@ class ManifestTest {
 		
 		assertEquals(3.0 + 6.0 + 2.0, 3.0 + 6.0 + 2.0, Manifest.GetLogisticsCost());
 	}
-	
-	
-	//Check the number of trucks create for a set amount of items
 
 }

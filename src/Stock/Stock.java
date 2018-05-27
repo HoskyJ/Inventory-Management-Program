@@ -8,12 +8,13 @@ import Stock.Item;
 
 public class Stock {
 
-	private List<Item> inventory = new ArrayList<Item>();
-
+	private List<Item> inventory = new ArrayList<Item>(); //Stores the items into a list which makes up inventory
+	
+	//Default constructor
 	public Stock() {
 	}
 	
-	//Overload for manifest
+	//Overload used by manifest
 	public Stock(List<Item> items) {
 		this.inventory = items;
 	}
@@ -36,7 +37,6 @@ public class Stock {
 				tempString = "20";
 			}
 			int temperature = Integer.parseInt(tempString);
-			// need to sort this
 			int quantity = 0;
 			// Create new inventory item.
 			inventory.add(new Item(name, cost, sellPrice, reorderPoint, reorderAmount, temperature, quantity));
@@ -44,15 +44,17 @@ public class Stock {
 		return inventory;
 	}
 
-	// gets inventory
+	//Gets the list of items that make up stock
 	public List<Item> getItems() {
 		return this.inventory;
 	}
-
+	
+	//Returns the amount of items which make up stock
 	public int getSize() {
 		return this.inventory.size();
 	}
 
+	//Returns the particular object at given index
 	public Item getItem(int index) {
 		return this.inventory.get(index);
 	}

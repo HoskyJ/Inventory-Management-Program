@@ -5,9 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class ReadCSVTest {
-
-	//Invalid item_properties file name
 	@Test
+	//Invalid item_properties file name
     void invalidFileName() {
         final CSVFormatException thrown = assertThrows(
         		CSVFormatException.class,
@@ -16,8 +15,8 @@ class ReadCSVTest {
         assertEquals("Invalid file name", thrown.getMessage());
     }
 	
-	//Empty item_properties file
 	@Test
+	//Empty item_properties file
 	void emptyFile() {
 		
         final CSVFormatException thrown = assertThrows(
@@ -26,5 +25,4 @@ class ReadCSVTest {
         );
         assertEquals("CSV should contain at least one item", thrown.getMessage());
     }
-
 }

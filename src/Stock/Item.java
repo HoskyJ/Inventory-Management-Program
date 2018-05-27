@@ -9,7 +9,7 @@ public class Item {
 	private int temp;
 	private int quantity = 600;
 
-	// Constructs an Item object
+	//Constructs an Item object
 	public Item(String name, double cost, double sellPrice, int reorderPoint, int reorderAmount, int temp, int quantity) {
 		this.name = name;
 		this.cost = cost;
@@ -54,10 +54,12 @@ public class Item {
 		return this.quantity;
 	}
 
+	//Used to increase quantity of item after manifest has been loaded
 	public void addQuantity(int amount) {
 		quantity += amount;
 	}
-
+	
+	//Used to decrease quantity of item after sales have been loaded
 	public void subtractQuantity(int amount) {
 		quantity -= amount;
 	}

@@ -2,13 +2,6 @@ package Tests;
 
 import Stock.Item;
 
-
-/**
- * @author Tim Devereux
- * Tests for the Item class using JUnit 4
- *
- */
-
 import org.junit.jupiter.api.Test;
 
 class ItemTest {
@@ -19,6 +12,7 @@ class ItemTest {
 	public void testItemName() {
 		assert testItem.getName() == "test";		
 	}
+	
 	
 	@Test
 	public void testItemCost() {

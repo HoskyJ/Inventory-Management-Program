@@ -1,5 +1,9 @@
 package Stock;
-
+/**
+ * 
+ * @author J_Hos
+ *
+ */
 import java.util.ArrayList;
 
 import java.util.List;

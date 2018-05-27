@@ -1,5 +1,9 @@
 package Stock;
-
+/**
+ * 
+ * @author J_Hos
+ *
+ */
 public class Item {
 	private String name;
 	private double cost;

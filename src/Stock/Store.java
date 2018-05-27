@@ -1,5 +1,9 @@
 package Stock;
-
+/**
+ * 
+ * @author J_Hos
+ *
+ */
 public class Store {
 	String name;
 	double capital;

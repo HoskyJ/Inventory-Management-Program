@@ -25,6 +25,7 @@ import Stock.Item;
 import Stock.Stock;
 
 public class GUI extends JFrame {
+	
 	static List<Item> inventory;
 	static TableModel model;
 	static JTable table;
@@ -36,43 +37,89 @@ public class GUI extends JFrame {
 	static DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
 	static boolean fileChosen;
 
+	//Creates GUI and its elements and fills table with item properties
 	public static void initializeWindow() throws FileNotFoundException, CSVFormatException {
+		//Update store inventory with initial item properties
 		Stock inventory = new Stock();
 		inventory.initializeStock(CSV.ReadCSV.readItemProperties("test_files/item_properties.csv"));
 		Main.Entry.store.updateInventory(inventory);
 
-		// create frame
-		frame = new JFrame("Inventory Manager");
-		// create buttons
+		//Create buttons
 		JButton generateManifestButton = new JButton("Generate Manifest");
 		JButton loadManifestButton = new JButton("Load Manifest");
 		JButton loadSalesButton = new JButton("Load Sales");
+		
+		//Load manifest and sales buttons are disabled until first manifest is created
 		loadManifestButton.setEnabled(false);
 		loadSalesButton.setEnabled(false);
-
+		
+		//Add label for showing store capital and set it to appropriate value
 		JLabel capitalLabel = new JLabel();
 		capitalLabel.setText("Store Capital: $" + decimalFormat.format(Main.Entry.store.getCapital()));
 		capitalLabel.setFont(new Font("Helvitica", Font.BOLD, 24));
+		
+		//Create table
+		model = new TableModel(inventory.getItems());
+		table = new JTable(model);
+		
+		//Table sizing
+		table.setRowHeight(25);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		TableColumnModel columnModel = table.getColumnModel();
+		Dimension tableDim = new Dimension(720, 600);
+		table.setSize(tableDim);
+		table.setPreferredScrollableViewportSize(tableDim);
 
-		// action listener for sales button
+		//Resize column width
+		columnModel.getColumn(0).setPreferredWidth(120);
+		columnModel.getColumn(1).setPreferredWidth(120);
+		columnModel.getColumn(2).setPreferredWidth(120);
+		columnModel.getColumn(3).setPreferredWidth(120);
+		columnModel.getColumn(4).setPreferredWidth(120);
+		columnModel.getColumn(5).setPreferredWidth(120);
+
+		//Create group panel
+		JPanel groupPanel = new JPanel();
+
+		//Add components to panel
+		groupPanel.add(generateManifestButton);
+		groupPanel.add(loadManifestButton);
+		groupPanel.add(loadSalesButton);
+		groupPanel.add(loadSalesButton);
+		groupPanel.add(new JScrollPane(table));
+		groupPanel.add(capitalLabel);
+		
+		//Create the window with title
+		frame = new JFrame("Inventory Manager");
+		frame.add(groupPanel);
+		frame.setSize(900, 740);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		frame.setResizable(false);
+		
+		
+		//BUTTON LISTENERS//
+		//Activates when load sales button is pressed
 		loadSalesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					//Open window for user to select file to load
 					chooseFile();
-
 					if (fileChosen) {
 						file = CSV.ReadCSV.readSales(filename);
-
+						
+						//Goes through CSV data
 						for (int i = 0; i < file.length; i++) {
 							String xval = file[i][0];
 							for (int j = 0; j < inventory.getSize(); j++) {
 								if (xval.equals(inventory.getItem(j).getName())) {
-									// updates item quantity
+									//Updates item quantity from sales data
 									inventory.getItem(j).subtractQuantity(Integer.parseInt(file[i][1]));
-									// gets cost of each item and multiplies by quantity
+									//Gets cost of each item and multiplies by quantity
+									//Increase store capital with resulting value
 									Main.Entry.store.setCapital(Main.Entry.store.getCapital()
 											+ (Integer.parseInt(file[i][1]) * inventory.getItem(i).getPrice()));
-									// display updates capital to label
+									//Display updated capital to label (gain of capital)
 									capitalLabel.setText(
 											"Store Capital: $" + decimalFormat.format(Main.Entry.store.getCapital()));
 								}
@@ -87,31 +134,36 @@ public class GUI extends JFrame {
 				} catch (CSVFormatException e1) {
 					e1.printStackTrace();
 				}
+				
+				//Allow user to now press generate manifest button
 				generateManifestButton.setEnabled(true);
 			}
 		});
 
-		// action listener for manifest button
+		//Activates when load manifest button is pressed
 		loadManifestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					//Open window for user to select file to load
 					chooseFile();
-
+					
 					if (fileChosen) {
 						manifestFile = CSV.ReadCSV.readManifest(filename);
-
+						
+						//Goes through CSV data
 						for (int i = 0; i < inventory.getSize(); i++) {
 							String inventoryVal = inventory.getItem(i).getName();
 							for (int j = 0; j < manifestFile.size(); j++) {
 								String fileVal = manifestFile.get(j).get(0);
 								if (inventoryVal.equals(fileVal)) {
-									// updates item quantity
+									//Updates item quantity from manifest data
 									inventory.getItem(i).addQuantity(Integer.parseInt(manifestFile.get(j).get(1)));
-									// gets cost of each item and multiplies by quantity
+									//Gets cost of each item and multiplies by quantity
+									//Increase store capital with resulting value
 									Main.Entry.store.setCapital(Main.Entry.store.getCapital()
 											- (Integer.parseInt(manifestFile.get(j).get(1))
 													* inventory.getItem(i).getCost()));
-									// display updates capital to label
+									//Display updated capital to label (loss of capital)
 									capitalLabel.setText(
 											"Store Capital: $" + decimalFormat.format(Main.Entry.store.getCapital()));
 								}
@@ -127,15 +179,21 @@ public class GUI extends JFrame {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				
+				//It is now possible for users to load a manifest
+				//So enable load manifest button
 				loadManifestButton.setEnabled(false);
+				
+				//Enable load sales button
+				//because items under restock have been ordered
 				loadSalesButton.setEnabled(true);
 
 			}
 		});
-
+		
+		//Activates when generate manifest button is pressed
 		generateManifestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				Manifest.getItemDetails(Main.Entry.store.getInventory().getItems());
 				Manifest.sortTemp();
 				Manifest.cooledLogistics();
@@ -146,52 +204,19 @@ public class GUI extends JFrame {
 					e1.printStackTrace();
 				}
 				System.out.println(Manifest.getLogisticsCost());
-
+				
+				//It is now possible to load the new manifest
+				//So enable the load manifest button
 				loadManifestButton.setEnabled(true);
+				
+				//Disable generate manifest button as it has just been pressed
 				generateManifestButton.setEnabled(false);
 			}
 
 		});
-
-		// get stock
-		Dimension tableDim = new Dimension(720, 600);
-
-		// create table
-		model = new TableModel(inventory.getItems());
-		table = new JTable(model);
-		table.setRowHeight(25);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		TableColumnModel columnModel = table.getColumnModel();
-		table.setSize(tableDim);
-		table.setPreferredScrollableViewportSize(tableDim);
-
-		// resize column width
-		columnModel.getColumn(0).setPreferredWidth(120);
-		columnModel.getColumn(1).setPreferredWidth(120);
-		columnModel.getColumn(2).setPreferredWidth(120);
-		columnModel.getColumn(3).setPreferredWidth(120);
-		columnModel.getColumn(4).setPreferredWidth(120);
-		columnModel.getColumn(5).setPreferredWidth(120);
-
-		// create group panel
-		JPanel groupPanel = new JPanel();
-
-		// add components to panel
-		groupPanel.add(generateManifestButton);
-		groupPanel.add(loadManifestButton);
-		groupPanel.add(loadSalesButton);
-		groupPanel.add(loadSalesButton);
-		groupPanel.add(new JScrollPane(table));
-		groupPanel.add(capitalLabel);
-
-		// setup frame
-		frame.add(groupPanel);
-		frame.setSize(900, 740);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-		frame.setResizable(false);
 	}
 
+	//Used to bring a window up which allows users to select a file to load
 	public static void chooseFile() throws FileNotFoundException, CSVFormatException {
 		String userDir = System.getProperty("user.dir");
 		JFileChooser fileChooser = new JFileChooser(userDir + "/test_files");

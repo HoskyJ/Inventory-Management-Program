@@ -1,6 +1,10 @@
 package Delivery;
 import Stock.Stock;
-
+/**
+ * 
+ * @author J_Hos
+ *
+ */
 public abstract class Truck {
 	//Used to set capacity and create CSV
 	public enum Type {

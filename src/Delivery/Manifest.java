@@ -7,6 +7,12 @@ import Stock.Item;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * 
+ * @author J_Hos
+ *
+ */
+
 public class Manifest {
 	public static List<Truck> Manifest = new ArrayList<Truck>(); //Change to suit size of manifest not 100
 	public static ArrayList<ArrayList<Object>> ordinaryItems;

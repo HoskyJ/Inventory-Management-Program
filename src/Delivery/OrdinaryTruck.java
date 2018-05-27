@@ -1,5 +1,9 @@
 package Delivery;
-
+/**
+ * 
+ * @author J_Hos
+ *
+ */
 public class OrdinaryTruck extends Truck{
 	
 	public OrdinaryTruck() {

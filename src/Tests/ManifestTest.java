@@ -1,5 +1,9 @@
 package Tests;
-
+/**
+ * 
+ * @author J_Hos
+ *
+ */
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 

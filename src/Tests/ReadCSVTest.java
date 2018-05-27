@@ -3,7 +3,11 @@ import Exception.CSVFormatException;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-
+/**
+ * 
+ * @author J_Hos
+ *
+ */
 class ReadCSVTest {
 	@Test
 	//Invalid item_properties file name

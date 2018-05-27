@@ -1,5 +1,9 @@
 package Delivery;
-
+/**
+ * 
+ * @author J_Hos
+ *
+ */
 public class RefrigeratedTruck extends Truck {
 	
 	int temperature;

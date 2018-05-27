@@ -7,7 +7,7 @@ import GUI.GUI;
 
 public class Entry {
 	public static Store store;
-	public static void Main(String[] args) throws IOException, CSVFormatException {
+	public static void main(String[] args) throws IOException, CSVFormatException {
 		//Create store object
 		store = new Store("Store", 100000);
 		

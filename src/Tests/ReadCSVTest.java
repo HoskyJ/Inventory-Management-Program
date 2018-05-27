@@ -10,7 +10,7 @@ class ReadCSVTest {
     void invalidFileName() {
         final CSVFormatException thrown = assertThrows(
         		CSVFormatException.class,
-                () -> { CSV.ParseCSV.readItems("test_files/itemProperties1.csv"); }
+                () -> { CSV.ReadCSV.readItemProperties("test_files/itemProperties1.csv"); }
         );
         assertEquals("Invalid file name", thrown.getMessage());
     }
@@ -21,7 +21,7 @@ class ReadCSVTest {
 		
         final CSVFormatException thrown = assertThrows(
         		CSVFormatException.class,
-                () -> { CSV.ParseCSV.readItems("test_files/item_properties(empty).csv"); }
+                () -> { CSV.ReadCSV.readItemProperties("test_files/item_properties(empty).csv"); }
         );
         assertEquals("CSV should contain at least one item", thrown.getMessage());
     }

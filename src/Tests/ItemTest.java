@@ -23,7 +23,7 @@ class ItemTest {
 	@Test
 	//Ensure item sellPrice is correct
 	public void testItemSellPrice() {
-		assert testItem.getSellPrice() == 4.0;		
+		assert testItem.getPrice() == 4.0;		
 	}
 
 	@Test

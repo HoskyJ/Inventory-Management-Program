@@ -11,14 +11,14 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-public class ParseCSV {
+public class ReadCSV {
 
 	/* 
 	 * Reads from item_properties.csv. Returns the contents of
 	 * item_properties.csv as a multidimensional String array.
 	 */
 	@SuppressWarnings("resource")
-	public static String[][] readItems(String fileName) throws CSVFormatException, FileNotFoundException {
+	public static String[][] readItemProperties(String fileName) throws CSVFormatException, FileNotFoundException {
 		Scanner scanner;
 		Scanner tempScanner; //Used for initially determining array size in case more items are added.
 		String InputLine = "";
@@ -70,7 +70,7 @@ public class ParseCSV {
 	 */
 	@SuppressWarnings("resource")
 	public static String[][] readSales(String fileName) throws FileNotFoundException {
-		Scanner scanner = null;
+		Scanner scanner;
 		String InputLine = "";
 		String myArray[][] = new String[24][2];
 		int rowCounter = 0;
@@ -93,7 +93,7 @@ public class ParseCSV {
 	 * Reads from manifest. Returns the contents of
 	 * the manifest as a List of String Lists.
 	 */
-	public static List<List<String>> readManifest() throws IOException {
+	public static List<List<String>> readManifest(String fileName) throws IOException {
 	    String row = null;
 	    BufferedReader buffer = null;
 	    List<List<String>> csvData = new ArrayList<List<String>>();

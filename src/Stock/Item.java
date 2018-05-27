@@ -3,17 +3,17 @@ package Stock;
 public class Item {
 	private String name;
 	private double cost;
-	private double sellPrice;
+	private double price;
 	private int reorderPoint;
 	private int reorderAmount;
 	private int temp;
 	private int quantity = 600;
 
 	//Constructs an Item object
-	public Item(String name, double cost, double sellPrice, int reorderPoint, int reorderAmount, int temp, int quantity) {
+	public Item(String name, double cost, double price, int reorderPoint, int reorderAmount, int temp, int quantity) {
 		this.name = name;
 		this.cost = cost;
-		this.sellPrice = sellPrice;
+		this.price = price;
 		this.reorderPoint = reorderPoint;
 		this.reorderAmount = reorderAmount;
 		this.temp = temp;
@@ -34,8 +34,8 @@ public class Item {
 		return this.cost;
 	}
 
-	public double getSellPrice() {
-		return this.sellPrice;
+	public double getPrice() {
+		return this.price;
 	}
 
 	public int getReorderPoint() {
